@@ -4,6 +4,7 @@
 #include <ctime>
 #include <string>
 #include <sstream>
+#include <fstream>
 
 
 namespace Helper
@@ -14,7 +15,7 @@ namespace Helper
 
     struct DateTime
     {
-        int D, m, y, H, M, S;
+
 
         DateTime()
         {
@@ -29,17 +30,19 @@ namespace Helper
             M = info->tm_min;
             H = info->tm_hour;
             S = info->tm_sec;
-
         }
 
         DateTime(int D, int m, int y, int H, int M, int S) : D(D), m(m), y(y), H(H), M(M), S(S) {}
         DateTime(int D, int m, int y) : D(D), m(m), y(y), H(0), M(0), S(0) {}
 
+
+
         DateTime Now() const
         {
-            return Datetime();
+            return DateTime();
         }
 
+        int D, m, y, H, M, S;
 
 
         std::string GetDateString() const
@@ -85,10 +88,6 @@ namespace Helper
     }
 
 }
-
-
-
-
 
 
 #endif // HELPER_H

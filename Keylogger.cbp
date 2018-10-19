@@ -33,8 +33,9 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="Base64.h" />
-		<Unit filename="Helper.h" />
+		<Unit filename="IO.h" />
 		<Unit filename="KeyConstants.h" />
+		<Unit filename="helper.h" />
 		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />

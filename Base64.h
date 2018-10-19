@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 
-namespace BASE64_H
+namespace Base64
 {
     std::string base64_encode(const std::string &);
 
@@ -39,7 +39,25 @@ namespace BASE64_H
         for(const auto &c : s)
         {
             val = (val << 8 ) + c;
+            bits += 8;
+            while (bits >= 0)
+            {
+                ret.push_back(BASE64_CODES[(val >> bits) & b63]);
+                bits -= 6;
+            }
         }
+
+        if(bits > -6)
+        {
+            ret.push_back(BASE64_CODES[((val << 8) >> (bits + 8)) & b63]);
+        }
+
+        while(ret.size() % 4)
+        {
+            ret.push_back('=');
+        }
+
+        return ret;
     }
 
 }
