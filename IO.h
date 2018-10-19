@@ -30,10 +30,8 @@ namespace IO
                 c='\0';
                 if(!MkOneDr(path))
                     return false;
-
                 c='\\';
             }
-
         return true;
     }
 
