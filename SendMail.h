@@ -10,7 +10,7 @@
 
 #define SCRIPT_NAME "sm.ps1"
 
-namespace mail
+namespace Mail
 {
     #define X_EM_TO "ichwang@npcore.com"
     #define X_EM_FROM "ichwang@npcore.com"
