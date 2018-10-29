@@ -4,7 +4,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-#include <windows.h>
+#include <Windows.h>
 #include "Helper.h"
 #include "Base64.h"
 
