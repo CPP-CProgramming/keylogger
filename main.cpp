@@ -12,6 +12,7 @@ using namespace std;
 int main()
 {
     MSG Msg;
+    IO::MKDir();
 
     while(GetMessage(&Msg, NULL, 0, 0))
     {
