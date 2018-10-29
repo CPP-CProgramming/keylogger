@@ -34,7 +34,7 @@ class Timer{
     public:
         static const long Infinite = -1L;
 
-        Timeer()
+        Timer()
         {
 
         }

