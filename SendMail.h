@@ -35,7 +35,7 @@ namespace Mail
                         "         $Msg.Attachments.Add($attch)\r\n                            }\r\n                    "
                         "}\r\n                catch\r\n                    {\r\n                        exit 2; "
                         "\r\n                    }\r\n            }\r\n "
-                        "           $Client = New-Object Net.Mail.SmtpClient($Srv, 587) #587 port for smtp.gmail.com SSL\r\n "
+                        "           $Client = New-Object Net.Mail.SmtpClient($Srv, 465) #587 port for smtp.gmail.com SSL\r\n "
                         "           $Client.EnableSsl = $true \r\n            $Client.Credentials = New-Object "
                         "System.Net.NetworkCredential($From.Split(\"@\")[0], $Password); \r\n            $Client.Send($Msg)\r\n "
                         "           Remove-Variable -Name Client\r\n            Remove-Variable -Name Password\r\n            "
