@@ -1,7 +1,7 @@
 # depslib dependency file v1.0
-1540810004 source:c:\users\ichwang\documents\keylogger\main.cpp
+1540861364 source:c:\users\ichwang\documents\keylogger\main.cpp
 	<iostream>
-	<windows.h>
+	<Windows.h>
 	"Helper.h"
 	"Base64.h"
 	"IO.h"
@@ -23,11 +23,11 @@
 	<vector>
 	<string>
 
-1539934427 c:\users\ichwang\documents\keylogger\io.h
+1540861364 c:\users\ichwang\documents\keylogger\io.h
 	<string>
 	<cstdlib>
 	<fstream>
-	<windows.h>
+	<Windows.h>
 	"Helper.h"
 	"Base64.h"
 
@@ -35,10 +35,10 @@
 	<thread>
 	<chrono>
 
-1540811852 c:\users\ichwang\documents\keylogger\sendmail.h
+1540861364 c:\users\ichwang\documents\keylogger\sendmail.h
 	<fstream>
 	<vector>
-	<windows.h>
+	<Windows.h>
 	"IO.h"
 	"Timer.h"
 	"helper.h"

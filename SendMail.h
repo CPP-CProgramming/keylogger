@@ -14,14 +14,14 @@ namespace Mail
 {
     #define X_EM_TO "ichwang@npcore.com"
     #define X_EM_FROM "ichwang@npcore.com"
-    #define X_EM_PASS "hicgsw12"
+    #define X_EM_PASS "*********"
 
     const std::string &PowerShellScript =
                         "Param( \r\n   [String]$Att,\r\n   [String]$Subj,\r\n   "
                         "[String]$Body\r\n)\r\n\r\nFunction Send-EMail"
                         " {\r\n    Param (\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
                         "[String]$To,\r\n         [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$From,\r\n        [Parameter(`\r\n            mandatory=$true)]\r\n        "
+                        "[String]$From,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
                         "[String]$Password,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
                         "[String]$Subject,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
                         "[String]$Body,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
